@@ -173,13 +173,13 @@ img {
   color: var(--primary);
 }
 .nav-cta {
-  background: linear-gradient(135deg, var(--primary), #c01e12);
+  background: linear-gradient(135deg, #c4510b, #9a3e08);
   color: #fff !important;
   border-radius: 8px;
   padding: 10px 20px !important;
   font-size: 0.84rem !important;
   font-weight: 600 !important;
-  box-shadow: 0 4px 15px rgba(232, 40, 26, 0.3);
+  box-shadow: 0 4px 15px rgba(196, 81, 11, 0.3);
   margin-left: 6px;
 }
 .nav-cta::after {
@@ -187,7 +187,7 @@ img {
 }
 .nav-cta:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(232, 40, 26, 0.4);
+  box-shadow: 0 8px 22px rgba(196, 81, 11, 0.4);
 }
 
 /* ===================== SECTION COMMONS ===================== */
