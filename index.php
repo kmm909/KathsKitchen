@@ -75,6 +75,7 @@
                <div class="d-flex align-items-center gap-1">
                   <!-- FIX 1: Search button -->
                   <button id="navSearchBtn" title="Search"><i class="fas fa-search"></i></button>
+                  <a href="View/login.php" class="nav-link nav-login"><i class="fas fa-user me-1"></i>Iniciar sesión</a>
                   <a href="#menu" class="nav-link nav-cta"><i class="fas fa-shopping-bag me-1"></i>Order Now</a>
                </div>
             </div>

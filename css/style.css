@@ -190,6 +190,24 @@ img {
   box-shadow: 0 8px 22px rgba(196, 81, 11, 0.4);
 }
 
+.nav-login {
+  border: 2px solid var(--primary);
+  color: var(--primary) !important;
+  border-radius: 8px;
+  padding: 8px 18px !important;
+  font-size: 0.84rem !important;
+  font-weight: 600 !important;
+  margin-left: 6px;
+  transition: all 0.25s ease;
+}
+.nav-login::after {
+  display: none !important;
+}
+.nav-login:hover {
+  background: var(--primary);
+  color: #fff !important;
+}
+
 /* ===================== SECTION COMMONS ===================== */
 section {
   padding: 88px 0;
