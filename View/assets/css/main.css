@@ -1,0 +1,298 @@
+/* ===================== VARIABLES ===================== */
+/* Colores, tipografía, tamaños y bordes del proyecto. Cambie aquí para ajustar todo el sitio. */
+:root {
+    --color-primario: #e8281a;
+    --color-primario-oscuro: #c01e12;
+    --color-texto: #1a1a1a;
+    --color-texto-suave: #777777;
+    --color-fondo: #fff8f0;
+    --color-tarjeta: #ffffff;
+    --color-borde: #dddddd;
+    --color-error: #dc3545;
+
+    --fuente-principal: "Poppins", Arial, sans-serif;
+    --tamano-titulo: 32px;
+    --tamano-texto: 16px;
+    --tamano-pequeno: 14px;
+
+    --radio-control: 10px;
+    --radio-tarjeta: 20px;
+    --sombra-tarjeta: 0 10px 35px rgba(0, 0, 0, 0.1);
+    --sombra-foco: 0 0 0 3px rgba(232, 40, 26, 0.15);
+    --fuente-titulos: "Playfair Display", Georgia, serif;
+    --transicion: 0.3s;
+}
+
+/* ===================== BASE ===================== */
+body {
+    margin: 0;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: var(--fuente-principal);
+    font-size: var(--tamano-texto);
+}
+
+/* ===================== ACCESO (login, registro, recuperación) ===================== */
+.login-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 16px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 450px;
+    background-color: var(--color-tarjeta);
+    padding: 40px;
+    border-radius: var(--radio-tarjeta);
+    box-shadow: var(--sombra-tarjeta);
+}
+
+.login-brand {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-brand h1 {
+    margin-bottom: 8px;
+    font-family: var(--fuente-titulos);
+    font-size: var(--tamano-titulo);
+    font-weight: 700;
+    color: var(--color-primario);
+}
+
+.login-brand p {
+    margin: 0;
+    color: var(--color-texto-suave);
+}
+
+.login-form-group {
+    margin-bottom: 20px;
+}
+
+.login-form-label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--color-texto);
+    font-weight: 600;
+}
+
+.login-input-group {
+    position: relative;
+}
+
+.login-input {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-control);
+    outline: none;
+    box-sizing: border-box;
+    font-family: inherit;
+    transition: var(--transicion);
+}
+
+.login-input:focus {
+    border-color: var(--color-primario);
+    box-shadow: var(--sombra-foco);
+}
+
+.login-input.is-invalid {
+    border-color: var(--color-error);
+}
+
+.password-wrapper .login-input {
+    padding-right: 50px;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    color: var(--color-texto-suave);
+    cursor: pointer;
+}
+
+.password-toggle-btn:hover {
+    color: var(--color-primario);
+}
+
+.login-options {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.forgot-password-link {
+    color: var(--color-primario);
+    font-size: var(--tamano-pequeno);
+    text-decoration: none;
+}
+
+.forgot-password-link:hover {
+    color: var(--color-primario-oscuro);
+    text-decoration: underline;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: var(--radio-control);
+    background-color: var(--color-primario);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transicion);
+}
+
+.btn-login:hover {
+    background-color: var(--color-primario-oscuro);
+}
+
+.login-divider {
+    margin: 25px 0;
+    border-top: 1px solid #eeeeee;
+}
+
+.login-footer-text {
+    margin: 0;
+    color: #666666;
+    text-align: center;
+}
+
+.login-footer-text a {
+    color: var(--color-primario);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-footer-text a:hover {
+    color: var(--color-primario-oscuro);
+    text-decoration: underline;
+}
+
+.back-home {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.back-home a {
+    color: var(--color-texto-suave);
+    font-size: var(--tamano-pequeno);
+    text-decoration: none;
+}
+
+.back-home a:hover {
+    color: var(--color-primario);
+}
+
+/* Mensajes de validación de jQuery Validation */
+label.is-invalid {
+    display: block;
+    margin-top: 6px;
+    color: var(--color-error);
+    font-size: var(--tamano-pequeno);
+    font-weight: 400;
+}
+
+/* ===================== PANEL (layoutInterno) ===================== */
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 60px;
+    padding: 10px 20px;
+    background-color: var(--color-primario);
+    color: #ffffff;
+}
+
+.app-marca {
+    font-family: var(--fuente-titulos);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.app-usuario {
+    font-size: var(--tamano-pequeno);
+}
+
+.app-boton-menu {
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.app-cuerpo {
+    display: flex;
+    min-height: calc(100vh - 60px);
+}
+
+.app-sidebar {
+    --bs-offcanvas-width: 260px;
+    background-color: var(--color-tarjeta);
+    border-right: 1px solid var(--color-borde);
+}
+
+@media (min-width: 992px) {
+    .app-sidebar {
+        width: 240px;
+        flex-shrink: 0;
+    }
+}
+
+.app-enlace {
+    padding: 10px 12px;
+    border-radius: var(--radio-control);
+    color: var(--color-texto);
+}
+
+.app-enlace:hover,
+.app-enlace.active {
+    background-color: var(--color-fondo);
+    color: var(--color-primario);
+}
+
+.app-contenido {
+    flex: 1;
+    min-width: 0;
+    padding: 30px 20px;
+}
+
+.app-titulo {
+    margin-bottom: 4px;
+    font-family: var(--fuente-titulos);
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.app-subtitulo {
+    margin-bottom: 24px;
+    color: var(--color-texto-suave);
+}
+
+.app-tarjeta {
+    height: 100%;
+    padding: 24px;
+    border-radius: var(--radio-tarjeta);
+    background-color: var(--color-tarjeta);
+    box-shadow: var(--sombra-tarjeta);
+}
+
+.app-tarjeta i {
+    font-size: 28px;
+    color: var(--color-primario);
+}
+
+.app-footer {
+    padding: 16px;
+    border-top: 1px solid var(--color-borde);
+    background-color: var(--color-tarjeta);
+    color: var(--color-texto-suave);
+    text-align: center;
+}
