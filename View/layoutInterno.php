@@ -24,7 +24,7 @@ function IncludeJS()
 <?php
 }
 
-// Encabezado superior de la plantilla Sarab
+// Encabezado superior de la plantilla Kath's Kitchen
 function MostrarHeader()
 {
 ?>
@@ -33,7 +33,7 @@ function MostrarHeader()
             <button class="btn app-boton-menu d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="menuLateral" aria-label="Abrir menú">
                 <i class="bi bi-list"></i>
             </button>
-            <span class="app-marca">Sarab</span>
+            <span class="app-marca">Kath's Kitchen</span>
         </div>
         <div class="app-usuario">
             <i class="bi bi-person-circle me-1"></i>
@@ -69,7 +69,7 @@ function MostrarFooter()
 {
 ?>
     <footer class="app-footer">
-        <small>&copy; <?php echo date('Y'); ?> Sarab</small>
+        <small>&copy; <?php echo date('Y'); ?> Kath's Kitchen</small>
     </footer>
 <?php
 }

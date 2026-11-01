@@ -22,5 +22,6 @@ function IncludeJS()
     <script src="../assets/libs/jquery-validation/jquery.validate.min.js"></script>
     <script src="../assets/libs/jquery-validation/localization/messages_es.min.js"></script>
     <script src="../assets/libs/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/auth.js"></script>
 <?php
 }

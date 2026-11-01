@@ -103,6 +103,16 @@ body {
     border-color: var(--color-error);
 }
 
+.login-input.login-input-invalid {
+    border-color: var(--color-error);
+}
+
+.login-error-message {
+    color: var(--color-error);
+    font-size: 0.875rem;
+    margin-top: 6px;
+}
+
 .password-wrapper .login-input {
     padding-right: 50px;
 }
