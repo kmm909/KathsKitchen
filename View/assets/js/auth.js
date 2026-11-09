@@ -1,14 +1,67 @@
-// Interacciones de las páginas de acceso: inicio de sesión y recuperación de contraseña
-$(function () {
+/*
+========================================================================
+   BOOTSTRAP 5 ADMIN TEMPLATE - SPARK ADMIN
+   AUTHENTICATION MODULE JAVASCRIPT
+   Developed with premium UI/UX standards
 
-    // Mostrar u ocultar la contraseña
-    $('#btnMostrarContrasenna, #toggle-password').on('click', function () {
-        var $campo = $('#txtContrasenna');
-        var mostrar = $campo.attr('type') === 'password';
+   Template Name: Spark Admin
+   Version: 1.0
+   Author: Spark Admin Team
+   Email: hello.sparkadmin@gmail.com
+   URL: https://sparkadmin.web.id
+========================================================================
+*/
 
-        $campo.attr('type', mostrar ? 'text' : 'password');
-        $(this).find('i').toggleClass('bi-eye', !mostrar).toggleClass('bi-eye-slash', mostrar);
-        $(this).attr('aria-label', mostrar ? 'Ocultar contraseña' : 'Mostrar contraseña');
+document.addEventListener('DOMContentLoaded', function () {
+    /**
+     * Password Visibility Toggle Logic
+     * Enables toggling password input between obscured dots and plain text.
+     */
+    const togglePasswords = document.querySelectorAll('.password-toggle-btn');
+
+    togglePasswords.forEach(function (togglePassword) {
+        const inputGroup = togglePassword.closest('.login-input-group');
+        const passwordInput = inputGroup && inputGroup.querySelector('.login-input-password');
+
+        if (!passwordInput) {
+            return;
+        }
+
+        togglePassword.addEventListener('click', function () {
+            // Toggle input type attribute
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+
+            // Toggle eye icon class & aria-label
+            const icon = this.querySelector('i');
+            if (type === 'text') {
+                if (icon) {
+                    icon.classList.remove('bi-eye');
+                    icon.classList.add('bi-eye-slash');
+                }
+                this.setAttribute('aria-label', 'Hide password');
+            } else {
+                if (icon) {
+                    icon.classList.remove('bi-eye-slash');
+                    icon.classList.add('bi-eye');
+                }
+                this.setAttribute('aria-label', 'Show password');
+            }
+        });
     });
 
+    /**
+     * Client-Side Form Validation Logic
+     * Prevents submission if form inputs are invalid and applies Bootstrap validation styles.
+     */
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', function (event) {
+            if (!loginForm.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            loginForm.classList.add('was-validated');
+        });
+    }
 });

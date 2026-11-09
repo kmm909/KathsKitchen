@@ -2,11 +2,23 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recuperación de acceso | Kath's Kitchen</title>
 </head>
-<body>
-    <h1>Kath's Kitchen</h1>
-    <p>Hola, {{NOMBRE}}.</p>
-    <p>Su contraseña temporal es: <strong>{{TEMPORAL}}</strong></p>
+<body style="margin:0; padding:0; background-color:#f8f6f2; font-family:'Segoe UI',Arial,sans-serif; color:#352e27;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr><td align="center" style="padding:30px 12px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px; background-color:#ffffff; border:1px solid #e5ddd1; border-radius:12px; overflow:hidden;">
+                <tr><td style="padding:28px; background-color:#3b493c; color:#fff4e5; text-align:center;">
+                    <h1 style="margin:0; font-family:Georgia,serif; font-size:26px;">Kath's Kitchen</h1>
+                </td></tr>
+                <tr><td style="padding:32px; line-height:1.7;">
+                    <p>Hola, <strong>{{NOMBRE}}</strong>.</p>
+                    <p>Su contraseña temporal es:</p>
+                    <p style="padding:20px; background-color:#f0e6d7; border-left:4px solid #3b493c; color:#3b493c; font-size:24px; letter-spacing:3px;"><strong>{{TEMPORAL}}</strong></p>
+                </td></tr>
+            </table>
+        </td></tr>
+    </table>
 </body>
 </html>

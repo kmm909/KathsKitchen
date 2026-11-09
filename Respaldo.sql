@@ -108,14 +108,22 @@ CREATE TABLE `tusuario` (
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE PROCEDURE `spActualizarContrasenna`(
-	pConsecutivo 	int,
-	pContrasenna	varchar(15)
+	pConsecutivo 		int,
+	pContrasenna		varchar(15),
+    pContrasennaActual	varchar(15)
 )
 BEGIN
 
+	IF(pContrasennaActual = '') THEN
+		SET pContrasennaActual = NULL;
+	END IF;
+
 	UPDATE 	tusuario
     SET 	Contrasenna = pContrasenna
-    WHERE	Consecutivo	= pConsecutivo;
+    WHERE	Consecutivo	= pConsecutivo
+		AND Contrasenna = IFNULL(pContrasennaActual,Contrasenna);
+        
+	SELECT ROW_COUNT() > 0 AS 'Actualizado';
 
 END ;;
 DELIMITER ;

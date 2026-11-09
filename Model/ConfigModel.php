@@ -3,7 +3,7 @@
 function Conectar()
 {
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-    return new mysqli("127.0.0.1:3308","root","","kathskitchen_bd");
+    return new mysqli("127.0.0.1:3308","root","7208","kathskitchen_bd");
 }
 
 function Cerrar($context)

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cambio de Acceso</title>
+  <style>
+    @media only screen and (max-width: 620px) {
+      .contenedor { width: 100% !important; }
+      .contenido { padding: 24px 20px !important; }
+      .fecha { font-size: 18px !important; }
+    }
+  </style>
+</head>
+<body style="margin:0; padding:0; background-color:#f8f6f2; font-family:'Segoe UI', Arial, Helvetica, sans-serif;">
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f8f6f2;">
+    <tr>
+      <td align="center" style="padding:30px 12px;">
+
+        <table role="presentation" class="contenedor" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px; max-width:600px; background-color:#ffffff; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(53,46,39,0.07);">
+
+          <!-- Encabezado -->
+          <tr>
+            <td align="center" style="background-color:#3b493c; padding:28px 20px;">
+              <h1 style="margin:0; font-size:22px; font-weight:600; color:#ffffff;">Cambio de contraseña</h1>
+            </td>
+          </tr>
+
+          <!-- Contenido -->
+          <tr>
+            <td class="contenido" style="padding:36px 40px; color:#352e27; font-size:15px; line-height:1.6;">
+
+              <p style="margin:0 0 16px 0; font-size:17px;">Hola, <strong>{{NOMBRE}}</strong>:</p>
+
+              <p style="margin:0 0 24px 0;">
+                La contraseña de tu cuenta en Kath's Kitchen se actualizó correctamente.
+                A partir de ahora, utiliza tu nueva contraseña para iniciar sesión.
+              </p>
+
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="background-color:#f0e6d7; border-left:4px solid #3b493c; padding:18px 20px;">
+                    <span style="display:block; font-size:13px; color:#685c4f; margin-bottom:6px;">Fecha y hora del cambio</span>
+                    <span class="fecha" style="font-size:20px; font-weight:600; color:#3b493c;">{{FECHAHORA}}</span>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:24px 0 0 0;">
+                Por tu seguridad, nunca compartas tu contraseña.
+              </p>
+
+              <p style="margin:16px 0 0 0; font-size:13px; color:#85776a;">
+                Si tú no solicitaste este cambio, comunícate con el administrador del sistema.
+              </p>
+
+            </td>
+          </tr>
+
+          <!-- Pie -->
+          <tr>
+            <td align="center" style="background-color:#f8f6f2; padding:18px 20px; font-size:12px; color:#85776a; border-top:1px solid #e5ddd1;">
+              Este es un mensaje automático, por favor no respondas a este correo.
+            </td>
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

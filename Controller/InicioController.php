@@ -31,6 +31,8 @@ if(isset($_POST['btnInicioSesion'])) {
     if($response) {
         $_SESSION['NombreUsuario'] = $response['Nombre'];
         $_SESSION['NombreRol'] = $response['NombreRol'];
+        $_SESSION['ConsecutivoUsuario'] = $response['Consecutivo'];
+        $_SESSION['CorreoElectronico'] = $response['CorreoElectronico'];
 
         header("Location: ../../View/Inicio/home.php");
         exit();
@@ -46,7 +48,7 @@ if(isset($_POST['btnRecuperarContrasenna'])) {
 
     if($response) {
         $contrasennaTemporal = GenerarContrasennaTemporal();
-        $responseUpdate = ActualizarContrasennaModel($response['Consecutivo'], $contrasennaTemporal);
+        $responseUpdate = ActualizarContrasennaModel($response['Consecutivo'], $contrasennaTemporal, null);
 
         if($responseUpdate) {
             $plantilla = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/KathsKitchen/View/template/RecuperarAcceso.html');

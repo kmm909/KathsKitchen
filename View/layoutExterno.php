@@ -5,12 +5,13 @@
 // Estilos: se llama dentro del head
 function IncludeCSS()
 {
+    $versionCSS = filemtime($_SERVER['DOCUMENT_ROOT'] . '/KathsKitchen/View/assets/css/main.css');
 ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/libs/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/libs/bootstrap-icons/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/main.css?v=<?php echo $versionCSS; ?>">
 <?php
 }
 

@@ -17,7 +17,7 @@ function EnviarCorreoElectronico($asunto, $contenido, $destinatario)
 {
     try {
         $correoSalida = "allansasa15@gmail.com";
-        $contrasennaSalida = "";
+        $contrasennaSalida = "yiex izsm waow xzlh";
 
         if($contrasennaSalida == "") {
             return true; // Simulación: no se envía ningún correo.
