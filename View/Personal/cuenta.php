@@ -1,5 +1,7 @@
-<?php include_once '../layoutInterno.php'; 
+<?php include_once '../layoutInterno.php';
       include_once $_SERVER['DOCUMENT_ROOT'] . '/KathsKitchen/Controller/PersonalController.php';
+
+      $datos = ConsultarUsuario();
 ?>
 
 <!DOCTYPE html>
@@ -48,6 +50,7 @@
                             <div class="login-input-group">
                                 <i class="bi bi-person input-icon"></i>
                                 <input type="text" id="txtIdentificacion" name="txtIdentificacion" class="login-input"
+                                    value="<?php echo htmlspecialchars($datos['Identificacion'], ENT_QUOTES, 'UTF-8'); ?>"
                                     onkeyup="ConsultarNombre()">
                             </div>
                         </div>
@@ -56,7 +59,8 @@
                             <label for="txtNombre" class="login-form-label">Nombre Completo</label>
                             <div class="login-input-group">
                                 <i class="bi bi-person-badge input-icon"></i>
-                                <input type="text" id="txtNombre" name="txtNombre" class="login-input">
+                                <input type="text" id="txtNombre" name="txtNombre" class="login-input"
+                                    value="<?php echo htmlspecialchars($datos['Nombre'], ENT_QUOTES, 'UTF-8'); ?>">
                             </div>
                         </div>
 
@@ -65,7 +69,7 @@
                             <div class="login-input-group">
                                 <i class="bi bi-envelope input-icon"></i>
                                 <input type="text" id="txtCorreoElectronico" name="txtCorreoElectronico"
-                                    class="login-input">
+                                    value="<?php echo htmlspecialchars($datos['CorreoElectronico'], ENT_QUOTES, 'UTF-8'); ?>" class="login-input">
                             </div>
                         </div>
 

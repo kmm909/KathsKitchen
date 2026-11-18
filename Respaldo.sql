@@ -250,3 +250,47 @@ DELIMITER ;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2026-10-28 20:41:30
+
+
+
+-- ===================================================================
+-- Kath's Kitchen - Procedimientos para "Datos Personales"
+-- ===================================================================
+USE kathskitchen_bd;
+
+DROP PROCEDURE IF EXISTS spConsultarUsuario;
+DROP PROCEDURE IF EXISTS spActualizarDatosCuenta;
+
+DELIMITER ;;
+
+CREATE PROCEDURE spConsultarUsuario(
+	pConsecutivo 	int
+)
+BEGIN
+
+	SELECT 	U.Consecutivo, Identificacion, Nombre, CorreoElectronico, Estado, ConsecutivoRol, R.NombreRol
+	FROM	tusuario U
+	INNER JOIN trol R ON U.ConsecutivoRol = R.Consecutivo
+	WHERE 	U.Consecutivo = pConsecutivo;
+
+END ;;
+
+CREATE PROCEDURE spActualizarDatosCuenta(
+	pConsecutivo 		int,
+	pIdentificacion		varchar(20),
+	pNombre				varchar(250),
+	pCorreoElectronico	varchar(100)
+)
+BEGIN
+
+	UPDATE 	tusuario
+	SET 	Identificacion    = pIdentificacion,
+			Nombre            = pNombre,
+			CorreoElectronico = pCorreoElectronico
+	WHERE	Consecutivo = pConsecutivo;
+
+	SELECT ROW_COUNT() > 0 AS 'Actualizado';
+
+END ;;
+
+DELIMITER ;
