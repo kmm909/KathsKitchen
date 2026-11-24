@@ -31,6 +31,7 @@ if(isset($_POST['btnInicioSesion'])) {
     if($response) {
         $_SESSION['NombreUsuario'] = $response['Nombre'];
         $_SESSION['NombreRol'] = $response['NombreRol'];
+        $_SESSION['ConsecutivoRol'] = $response['ConsecutivoRol'];
         $_SESSION['ConsecutivoUsuario'] = $response['Consecutivo'];
         $_SESSION['CorreoElectronico'] = $response['CorreoElectronico'];
 
@@ -48,15 +49,45 @@ if(isset($_POST['btnRecuperarContrasenna'])) {
 
     if($response) {
         $contrasennaTemporal = GenerarContrasennaTemporal();
-        $responseUpdate = ActualizarContrasennaModel($response['Consecutivo'], $contrasennaTemporal, null);
+        $context = null;
+        $transaccionActiva = false;
+        $recuperado = false;
 
-        if($responseUpdate) {
-            $plantilla = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/KathsKitchen/View/template/RecuperarAcceso.html');
-            $plantilla = str_replace("{{TEMPORAL}}", $contrasennaTemporal, $plantilla);
-            $plantilla = str_replace("{{NOMBRE}}", $response['Nombre'], $plantilla);
+        try {
+            $plantilla = CargarPlantillaCorreo('RecuperarAcceso.html', [
+                '{{TEMPORAL}}' => $contrasennaTemporal,
+                '{{NOMBRE}}' => $response['Nombre']
+            ]);
 
-            EnviarCorreoElectronico("Recuperación de Acceso", $plantilla, $response['CorreoElectronico']);
+            $context = Conectar();
+            $context->begin_transaction();
+            $transaccionActiva = true;
+            $responseUpdate = ActualizarContrasennaModel($response['Consecutivo'], $contrasennaTemporal, null, $context);
 
+            if (!$responseUpdate || !EnviarCorreoElectronico('Recuperación de Acceso', $plantilla, $response['CorreoElectronico'])) {
+                throw new RuntimeException('La recuperación no se completó; se revierte la contraseña temporal.');
+            }
+
+            $context->commit();
+            $transaccionActiva = false;
+            $recuperado = true;
+        } catch (Throwable $exc) {
+            if ($context !== null && $transaccionActiva) {
+                try {
+                    $context->rollback();
+                } catch (Throwable $errorRollback) {
+                    RegistrarFalloCorreo($errorRollback, 'RecuperarAccesoRollback');
+                }
+            }
+            RegistrarFalloCorreo($exc, 'RecuperarAcceso');
+        } finally {
+            if ($context !== null) {
+                Cerrar($context);
+            }
+        }
+
+        if ($recuperado) {
+            $_SESSION['mensajeAcceso'] = 'Revise su correo para obtener la contraseña temporal. Si no aparece, revise también la carpeta de spam.';
             header("Location: ../../View/Inicio/login.php");
             exit();
         }

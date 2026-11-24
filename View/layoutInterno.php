@@ -96,6 +96,10 @@ function MostrarFooter()
 
 function MostrarSidebar()
 {
+    $menuAdmin = '';
+    if ((int) ($_SESSION['ConsecutivoRol'] ?? 0) === 2) {
+        $menuAdmin = '<div class="sidebar-menu-section"><ul class="sidebar-menu-list"><li class="sidebar-menu-item"><a href="../Menu/menu.php" class="sidebar-menu-link" title="Administrar menú"><i class="bi bi-journal-richtext"></i><span>Menú de catering</span></a></li></ul></div>';
+    }
     echo '
         <div class="sidebar-wrapper offcanvas-lg offcanvas-start app-sidebar" id="sidebar" tabindex="-1" aria-label="Navegación principal">
             <button type="button" class="btn-close d-lg-none ms-auto m-3" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Cerrar menú"></button>
@@ -130,8 +134,37 @@ function MostrarSidebar()
                 </li>
                 </ul>
             </div>
+            ' . $menuAdmin . '
             </div>
         </div>
+    ';
+}
+
+function ValidarVistaAdmin()
+{
+    if ((int) ($_SESSION['ConsecutivoRol'] ?? 0) !== 2) {
+        header('Location: /KathsKitchen/View/Inicio/home.php');
+        exit();
+    }
+}
+
+function IncludeMenuCSS()
+{
+    echo '
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    ';
+}
+
+function IncludeMenuJS()
+{
+    echo '
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     ';
 }
 
@@ -152,6 +185,7 @@ function IncludeJS()
     echo '
         <script src="../assets/libs/jquery/jquery-3.7.1.min.js"></script>
         <script src="../assets/libs/jquery-validation/jquery.validate.min.js"></script>
+        <script src="../assets/libs/jquery-validation/localization/messages_es.min.js"></script>
         <script src="../assets/libs/bootstrap/bootstrap.bundle.min.js"></script>
         <script src="../assets/js/dashboard.js"></script>
         <script src="../assets/js/auth.js"></script>

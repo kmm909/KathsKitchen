@@ -64,21 +64,42 @@ function ConsultarIdentificacionModel($identificacion)
     }
 }
 
-function ActualizarContrasennaModel($consecutivo, $contrasennaNueva, $contrasennaActual)
+function ActualizarContrasennaModel($consecutivo, $contrasennaNueva, $contrasennaActual, $context = null)
 {
+    // Recuperación comparte la conexión para poder revertir si falla el correo.
+    $cerrarConexion = $context === null;
     try{
-        $context = Conectar();
+        if ($cerrarConexion) {
+            $context = Conectar();
+        }
 
-        $sql = "CALL spActualizarContrasenna('$consecutivo','$contrasennaNueva', '$contrasennaActual')";
-        $response = $context -> query($sql);
+        $sql = 'CALL spActualizarContrasenna(?, ?, ?)';
+        $statement = $context->prepare($sql);
+        $statement->bind_param('iss', $consecutivo, $contrasennaNueva, $contrasennaActual);
+        $statement->execute();
+        $response = $statement->get_result();
 
         $actualizado = (bool) $response -> fetch_row()[0];
+        $response->free();
+        $statement->close();
+        while ($context->more_results() && $context->next_result()) {
+            $restante = $context->store_result();
+            if ($restante) {
+                $restante->free();
+            }
+        }
 
-        Cerrar($context);
         return $actualizado;
     }
     catch (Exception $exc) {
+        if (!$cerrarConexion) {
+            throw $exc;
+        }
         RegistrarError($exc, "ActualizarContrasennaModel");
         return false;
+    } finally {
+        if ($cerrarConexion && $context !== null) {
+            Cerrar($context);
+        }
     }
 }

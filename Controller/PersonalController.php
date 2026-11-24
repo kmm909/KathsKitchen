@@ -1,6 +1,7 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/KathsKitchen/Model/InicioModel.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/KathsKitchen/Model/PersonalModel.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/KathsKitchen/Controller/ConfigController.php';
 
 if(isset($_POST['btnCambiarContrasenna'])) {
     $contrasennaActual = $_POST['txtContrasenaActual'];
@@ -10,13 +11,21 @@ if(isset($_POST['btnCambiarContrasenna'])) {
     $response = ActualizarContrasennaModel($consecutivoUsuario,$contrasennaNueva,$contrasennaActual);
 
     if($response) {
-        $plantilla = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/KathsKitchen/View/template/CambioAcceso.html');
-        $plantilla = str_replace("{{FECHAHORA}}", date("Y-m-d H:i:s"), $plantilla);
-        $plantilla = str_replace("{{NOMBRE}}", $_SESSION['NombreUsuario'], $plantilla);
+        $correoEnviado = false;
+        try {
+            $fechaCambio = new DateTime('now', new DateTimeZone('America/Costa_Rica'));
+            $plantilla = CargarPlantillaCorreo('CambioAcceso.html', [
+                '{{FECHAHORA}}' => $fechaCambio->format('Y-m-d H:i:s'),
+                '{{NOMBRE}}' => $_SESSION['NombreUsuario']
+            ]);
+            $correoEnviado = EnviarCorreoElectronico('Cambio de Acceso', $plantilla, $_SESSION['CorreoElectronico']);
+        } catch (Throwable $exc) {
+            RegistrarFalloCorreo($exc, 'NotificarCambioAcceso');
+        }
 
-        EnviarCorreoElectronico("Cambio de Acceso", $plantilla, $_SESSION['CorreoElectronico']);
-
-        $_POST["mensajePassword"] = "Su contraseña se ha actualizado correctamente";
+        $_POST['mensajePassword'] = $correoEnviado
+            ? 'Su contraseña se ha actualizado correctamente y se envió la notificación por correo.'
+            : 'Su contraseña se actualizó, pero no se pudo enviar la notificación. Puede iniciar sesión con su nueva contraseña.';
     }
     else {
         $_POST["mensajePassword"] = "Su contraseña no se ha podido actualizar correctamente, verifique sus datos";

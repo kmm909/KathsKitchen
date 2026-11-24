@@ -294,3 +294,86 @@ BEGIN
 END ;;
 
 DELIMITER ;
+
+-- ===================================================================
+-- Kath's Kitchen - Menu de catering
+-- Para actualizar una BD existente, ejecutar solo desde este encabezado.
+-- Este bloque no elimina usuarios ni registros del menu.
+-- Precio: total en colones para la cantidad de porciones indicada.
+-- ===================================================================
+USE kathskitchen_bd;
+
+CREATE TABLE IF NOT EXISTS tmenu (
+    Consecutivo INT NOT NULL AUTO_INCREMENT,
+    Nombre VARCHAR(150) NOT NULL,
+    Porciones INT NOT NULL,
+    Precio DECIMAL(10,2) NOT NULL,
+    Descripcion VARCHAR(500) NOT NULL,
+    Disponible BIT(1) NOT NULL DEFAULT b'1',
+    Imagen VARCHAR(500) NOT NULL DEFAULT '',
+    PRIMARY KEY (Consecutivo)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+DROP PROCEDURE IF EXISTS spConsultarMenuAdmin;
+DROP PROCEDURE IF EXISTS spConsultarPlato;
+DROP PROCEDURE IF EXISTS spInactivarPlato;
+DROP PROCEDURE IF EXISTS spRegistrarPlato;
+DROP PROCEDURE IF EXISTS spActualizarPlato;
+
+DELIMITER ;;
+
+CREATE PROCEDURE spConsultarMenuAdmin()
+BEGIN
+    SELECT Consecutivo, Nombre, Porciones, Precio, Descripcion, Disponible, Imagen
+    FROM tmenu
+    ORDER BY Consecutivo DESC;
+END ;;
+
+CREATE PROCEDURE spConsultarPlato(pConsecutivo INT)
+BEGIN
+    SELECT Consecutivo, Nombre, Porciones, Precio, Descripcion, Disponible, Imagen
+    FROM tmenu
+    WHERE Consecutivo = pConsecutivo;
+END ;;
+
+CREATE PROCEDURE spInactivarPlato(pConsecutivo INT)
+BEGIN
+    UPDATE tmenu
+    SET Disponible = CASE WHEN Disponible = true THEN false ELSE true END
+    WHERE Consecutivo = pConsecutivo;
+    SELECT ROW_COUNT() > 0 AS Actualizado;
+END ;;
+
+CREATE PROCEDURE spRegistrarPlato(
+    pNombre VARCHAR(150),
+    pPorciones INT,
+    pPrecio DECIMAL(10,2),
+    pDescripcion VARCHAR(500),
+    pImagen VARCHAR(500)
+)
+BEGIN
+    INSERT INTO tmenu(Nombre, Porciones, Precio, Descripcion, Disponible, Imagen)
+    VALUES(pNombre, pPorciones, pPrecio, pDescripcion, true, pImagen);
+END ;;
+
+CREATE PROCEDURE spActualizarPlato(
+    pConsecutivo INT,
+    pNombre VARCHAR(150),
+    pPorciones INT,
+    pPrecio DECIMAL(10,2),
+    pDescripcion VARCHAR(500),
+    pImagen VARCHAR(500)
+)
+BEGIN
+    UPDATE tmenu
+    SET Nombre = pNombre,
+        Porciones = pPorciones,
+        Precio = pPrecio,
+        Descripcion = pDescripcion,
+        Imagen = pImagen
+    WHERE Consecutivo = pConsecutivo;
+    -- Guardar sin cambios tambien es una operacion valida.
+    SELECT EXISTS(SELECT 1 FROM tmenu WHERE Consecutivo = pConsecutivo) AS Actualizado;
+END ;;
+
+DELIMITER ;

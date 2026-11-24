@@ -23,6 +23,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/KathsKitchen/Controller/InicioControl
 
 
             <form action="" method="POST" id="loginForm" class="needs-validation" novalidate>
+                <?php if (isset($_SESSION['mensajeAcceso'])) { ?>
+                    <div class="alert alert-secondary text-center" role="status">
+                        <?php echo htmlspecialchars($_SESSION['mensajeAcceso'], ENT_QUOTES, 'UTF-8'); ?>
+                    </div>
+                    <?php unset($_SESSION['mensajeAcceso']); ?>
+                <?php } ?>
                 <?php if (isset($_POST['mensaje'])) { ?>
                     <div class="alert alert-secondary text-center" role="alert">
                         <?php echo htmlspecialchars($_POST['mensaje'], ENT_QUOTES, 'UTF-8'); ?>
